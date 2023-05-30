@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 import matplotlib.pyplot as plt
 from skimage.io import imread, imshow
 from skimage import img_as_ubyte
@@ -7,11 +8,11 @@ from skimage.exposure import histogram, cumulative_distribution
 from scipy.stats import cauchy, logistic
 
 # Load the image
-img = imread('/Users/mehmetaliisik/Documents/Jupyter/view.jpg')
+img = imread('13.jpg')
 
 # Display the original image
 plt.imshow(img)
-plt.title('Maltepe Sahili')
+plt.title('Maltepe Beach')
 
 # Create subplots for grayscale image and histogram
 fig, ax = plt.subplots(1, 2, figsize=(15, 5))
@@ -111,6 +112,9 @@ ax[0].set_title('Original Image')
 # Display the transformed image by stacking the corrected red, green, and blue channels
 ax[1].imshow(np.dstack([red_channel, green_channel, blue_channel]))
 ax[1].set_title('Transformed Image')
+
+# Saving the transformed image to a jpg file
+cv2.imwrite("transformed.jpg", np.dstack([red_channel, green_channel, blue_channel])) 
 
 def individual_channel(image, dist, channel):
     im_channel = img_as_ubyte(image[:,:,channel])  # Convert the specified channel to 8-bit representation
